@@ -52,6 +52,7 @@ CFType<DecompositionPolicy,
        NormalizationType>::
 CFType(const MatType& data,
        const DecompositionPolicy& decomposition,
+       const NormalizationType& normalization,
        const size_t numUsersForSimilarity,
        const size_t rank,
        const size_t maxIterations,
@@ -69,7 +70,7 @@ CFType(const MatType& data,
     this->numUsersForSimilarity = 5;
   }
 
-  Train(data, decomposition, maxIterations, minResidue, mit);
+  Train(data, decomposition,normalization, maxIterations, minResidue, mit);
 }
 
 // Train when data is given in dense matrix form.
@@ -79,12 +80,13 @@ void CFType<DecompositionPolicy,
             NormalizationType>::
 Train(const arma::mat& data,
       const DecompositionPolicy& decomposition,
+      const NormalizationType& normalization,
       const size_t maxIterations,
       const double minResidue,
       const bool mit)
 {
   this->decomposition = decomposition;
-
+  this->normalization = normalization;
   // Make a copy of data before performing normalization.
   arma::mat normalizedData(data);
   normalization.Normalize(normalizedData);
@@ -120,12 +122,13 @@ void CFType<DecompositionPolicy,
             NormalizationType>::
 Train(const arma::sp_mat& data,
       const DecompositionPolicy& decomposition,
+      const NormalizationType& normalization,
       const size_t maxIterations,
       const double minResidue,
       const bool mit)
 {
   this->decomposition = decomposition;
-
+  this->normalization = normalization;
   // data is not used in the following decomposition.Apply() method, so we only
   // need to Normalize cleanedData.
   cleanedData = data;

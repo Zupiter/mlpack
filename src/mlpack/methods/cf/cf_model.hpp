@@ -24,6 +24,13 @@
 #include <mlpack/methods/cf/decomposition_policies/bias_svd_method.hpp>
 #include <mlpack/methods/cf/decomposition_policies/svdplusplus_method.hpp>
 
+#include <mlpack/methods/cf/normalization/combined_normalization.hpp>
+#include <mlpack/methods/cf/normalization/item_mean_normalization.hpp>
+#include <mlpack/methods/cf/normalization/no_normalization.hpp>
+#include <mlpack/methods/cf/normalization/overall_mean_normalization.hpp>
+#include <mlpack/methods/cf/normalization/user_mean_normalization.hpp>
+#include <mlpack/methods/cf/normalization/z_score_normalization.hpp>
+
 namespace mlpack {
 namespace cf {
 
@@ -35,8 +42,8 @@ class DeleteVisitor : public boost::static_visitor<void>
 {
  public:
   //! Delete CFType object.
-  template<typename DecompositionPolicy>
-  void operator()(CFType<DecompositionPolicy>* c) const;
+  template<typename DecompositionPolicy, typename NormalizationType>
+  void operator()(CFType<DecompositionPolicy, NormalizationType>* c) const;
 };
 
 /**
@@ -46,8 +53,8 @@ class GetValueVisitor : public boost::static_visitor<void*>
 {
  public:
   //! Return stored pointer as void* type.
-  template<typename DecompositionPolicy>
-  void* operator()(CFType<DecompositionPolicy>* c) const;
+  template<typename DecompositionPolicy, typename NormalizationType>
+  void operator()(CFType<DecompositionPolicy, NormalizationType>* c) const;
 };
 
 /**
@@ -66,8 +73,8 @@ class PredictVisitor : public boost::static_visitor<void>
 
  public:
   //! Predict ratings for each user-item combination.
-  template<typename DecompositionPolicy>
-  void operator()(CFType<DecompositionPolicy>* c) const;
+  template<typename DecompositionPolicy, typename NormalizationType>
+  void operator()(CFType<DecompositionPolicy, NormalizationType>* c) const;
 
   //! Visitor constructor.
   PredictVisitor(const arma::Mat<size_t>& combinations,
@@ -100,8 +107,8 @@ class RecommendationVisitor : public boost::static_visitor<void>
                         const bool usersGiven);
 
   //! Generates the given number of recommendations.
-  template<typename DecompositionPolicy>
-  void operator()(CFType<DecompositionPolicy>* c) const;
+  template<typename DecompositionPolicy, typename NormalizationType>
+  void operator()(CFType<DecompositionPolicy, NormalizationType>* c) const;
 };
 
 /**
@@ -132,11 +139,11 @@ class CFModel
   ~CFModel();
 
   //! Get the pointer to CFType<> object.
-  template<typename DecompositionPolicy>
-  const CFType<DecompositionPolicy>* CFPtr() const;
+  template<typename DecompositionPolicy, typename NormalizationType>
+  const CFType<DecompositionPolicy, NormalizationType>* CFPtr() const;
 
   //! Train the model.
-  template<typename DecompositionPolicy,
+  template<typename DecompositionPolicy, typename NormalizationType,
            typename MatType>
   void Train(const MatType& data,
              const size_t numUsersForSimilarity,

@@ -91,7 +91,7 @@ class CFType
    *     arma::mat (table of (user, item, rating)) or arma::sp_mat (sparse
    *     rating matrix where row is item and column is user).
    *
-   * @param data Data matrix: dense matrix (coordinate lists) 
+   * @param data Data matrix: dense matrix (coordinate lists)
    *    or sparse matrix(cleaned).
    * @param decomposition Instantiated DecompositionPolicy object.
    * @param numUsersForSimilarity Size of the neighborhood.
@@ -103,6 +103,7 @@ class CFType
   template<typename MatType>
   CFType(const MatType& data,
          const DecompositionPolicy& decomposition = DecompositionPolicy(),
+         const NormalizationType& normalization = NormalizationType(),
          const size_t numUsersForSimilarity = 5,
          const size_t rank = 0,
          const size_t maxIterations = 1000,
@@ -122,6 +123,7 @@ class CFType
    */
   void Train(const arma::mat& data,
              const DecompositionPolicy& decomposition,
+             const NormalizationType& normalization,
              const size_t maxIterations = 1000,
              const double minResidue = 1e-5,
              const bool mit = false);
@@ -139,6 +141,7 @@ class CFType
    */
   void Train(const arma::sp_mat& data,
              const DecompositionPolicy& decomposition,
+             const NormalizationType& normalization,
              const size_t maxIterations = 1000,
              const double minResidue = 1e-5,
              const bool mit = false);
