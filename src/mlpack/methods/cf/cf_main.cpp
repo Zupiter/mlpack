@@ -396,131 +396,131 @@ void AssembleFactorizerType(const std::string& algorithm,
   if (algorithm == "NMF")
   {
     if(numalgo=="comb_norm")
-      PerformAction<NMFPolicy, combined_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<NMFPolicy, CombinedNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="item_mean_norm")
-      PerformAction<NMFPolicy, item_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<NMFPolicy, ItemMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="no_norm")
-      PerformAction<NMFPolicy, no_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<NMFPolicy, NoNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="overall_norm")
-      PerformAction<NMFPolicy, overall_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<NMFPolicy, OverallMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="user_mean_norm")
-      PerformAction<NMFPolicy, user_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<NMFPolicy, UserMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="z_score_norm")
-      PerformAction<NMFPolicy, z_score_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<NMFPolicy, ZScoreNormalization>(dataset, rank, maxIterations, minResidue);
   }
   else if (algorithm == "BatchSVD")
   {
     if(numalgo=="comb_norm")
-      PerformAction<BatchSVDPolicy, combined_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<BatchSVDPolicy, CombinedNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="item_mean_norm")
-      PerformAction<BatchSVDPolicy, item_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<BatchSVDPolicy, ItemMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="no_norm")
       PerformAction<BatchSVDPolicy, no_normalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="overall_norm")
-      PerformAction<BatchSVDPolicy, overall_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<BatchSVDPolicy, OverallMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="user_mean_norm")
-      PerformAction<BatchSVDPolicy, user_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<BatchSVDPolicy, UserMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="z_score_norm")
-      PerformAction<BatchSVDPolicy, z_score_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<BatchSVDPolicy, ZScoreNormalization>(dataset, rank, maxIterations, minResidue);
 
   }
   else if (algorithm == "SVDIncompleteIncremental")
   {
     if(numalgo=="comb_norm")
-      PerformAction<SVDIncompletePolicy, combined_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDIncompletePolicy, CombinedNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="item_mean_norm")
-      PerformAction<SVDIncompletePolicy, item_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDIncompletePolicy, ItemMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="no_norm")
-      PerformAction<SVDIncompletePolicy, no_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDIncompletePolicy, NoNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="overall_norm")
-      PerformAction<SVDIncompletePolicy, overall_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDIncompletePolicy, OverallMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="user_mean_norm")
-      PerformAction<SVDIncompletePolicy, user_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDIncompletePolicy, UserMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="z_score_norm")
-      PerformAction<SVDIncompletePolicy, z_score_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDIncompletePolicy, ZScoreNormalization>(dataset, rank, maxIterations, minResidue);
   }
   else if (algorithm == "SVDCompleteIncremental")
   {
     if(numalgo=="comb_norm")
-      PerformAction<SVDCompletePolicy, combined_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDCompletePolicy, CombinedNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="item_mean_norm")
-      PerformAction<SVDCompletePolicy, item_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDCompletePolicy, ItemMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="no_norm")
-      PerformAction<SVDCompletePolicy, no_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDCompletePolicy, NoNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="overall_norm")
-      PerformAction<SVDCompletePolicy, overall_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDCompletePolicy, OverallMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="user_mean_norm")
-      PerformAction<SVDCompletePolicy, user_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDCompletePolicy, UserMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="z_score_norm")
-      PerformAction<SVDCompletePolicy, z_score_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDCompletePolicy, ZScoreNormalization>(dataset, rank, maxIterations, minResidue);
   }
   else if (algorithm == "RegSVD")
   {
     ReportIgnoredParam("min_residue", "Regularized SVD terminates only "
         "when max_iterations is reached");
     if(numalgo=="comb_norm")
-      PerformAction<RegSVDPolicy, combined_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<RegSVDPolicy, CombinedNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="item_mean_norm")
-      PerformAction<RegSVDPolicy, item_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<RegSVDPolicy, ItemMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="no_norm")
-      PerformAction<RegSVDPolicy, no_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<RegSVDPolicy, NoNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="overall_norm")
-      PerformAction<RegSVDPolicy, overall_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<RegSVDPolicy, OverallMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="user_mean_norm")
-      PerformAction<RegSVDPolicy, user_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<RegSVDPolicy, UserMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="z_score_norm")
-      PerformAction<RegSVDPolicy, z_score_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<RegSVDPolicy, ZScoreNormalization>(dataset, rank, maxIterations, minResidue);
   }
   else if (algorithm == "RandSVD")
   {
     ReportIgnoredParam("min_residue", "Randomized SVD terminates only "
         "when max_iterations is reached");
     if(numalgo=="comb_norm")
-      PerformAction<RandomizedSVDPolicy, combined_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<RandomizedSVDPolicy, CombinedNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="item_mean_norm")
-      PerformAction<RandomizedSVDPolicy, item_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<RandomizedSVDPolicy, ItemMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="no_norm")
-      PerformAction<RandomizedSVDPolicy, no_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<RandomizedSVDPolicy, NoNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="overall_norm")
-      PerformAction<RandomizedSVDPolicy, overall_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<RandomizedSVDPolicy, OverallMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="user_mean_norm")
-      PerformAction<RandomizedSVDPolicy, user_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<RandomizedSVDPolicy, UserMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="z_score_norm")
-      PerformAction<RandomizedSVDPolicy, z_score_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<RandomizedSVDPolicy, ZScoreNormalization>(dataset, rank, maxIterations, minResidue);
   }
   else if (algorithm == "BiasSVD")
   {
     ReportIgnoredParam("min_residue", "Bias SVD terminates only "
         "when max_iterations is reached");
     if(numalgo=="comb_norm")
-      PerformAction<BiasSVDPolicy, combined_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<BiasSVDPolicy, CombinedNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="item_mean_norm")
-      PerformAction<BiasSVDPolicy, item_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<BiasSVDPolicy, ItemMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="no_norm")
-      PerformAction<BiasSVDPolicy, no_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<BiasSVDPolicy, NoNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="overall_norm")
-      PerformAction<BiasSVDPolicy, overall_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<BiasSVDPolicy, OverallMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="user_mean_norm")
-      PerformAction<BiasSVDPolicy, user_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<BiasSVDPolicy, UserMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="z_score_norm")
-      PerformAction<BiasSVDPolicy, z_score_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<BiasSVDPolicy, ZScoreNormalization>(dataset, rank, maxIterations, minResidue);
   }
   else if (algorithm == "SVDPP")
   {
     ReportIgnoredParam("min_residue", "SVD++ terminates only "
         "when max_iterations is reached");
     if(numalgo=="comb_norm")
-      PerformAction<SVDPlusPlusPolicy, combined_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDPlusPlusPolicy, CombinedNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="item_mean_norm")
-      PerformAction<SVDPlusPlusPolicy, item_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDPlusPlusPolicy, ItemMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="no_norm")
-      PerformAction<SVDPlusPlusPolicy, no_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDPlusPlusPolicy, NoNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="overall_norm")
-      PerformAction<SVDPlusPlusPolicy, overall_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDPlusPlusPolicy, OverallMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="user_mean_norm")
-      PerformAction<SVDPlusPlusPolicy, user_mean_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDPlusPlusPolicy, UserMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="z_score_norm")
-      PerformAction<SVDPlusPlusPolicy, z_score_normalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDPlusPlusPolicy, ZScoreNormalization>(dataset, rank, maxIterations, minResidue);
   }
 }
 
@@ -552,6 +552,9 @@ static void mlpackMain()
   RequireParamInSet<string>("normalgo", {"comb_norm", "item_mean_norm",
     "no_norm", "overall_norm", "user_mean_norm","z_score_norm"}, true,
     "unknown normalization algorithm");
+
+  ReportIgnoredParam({{ "iteration_only_termination", true }}, "min_residue");
+  
   RequireParamValue<int>("recommendations", [](int x) { return x > 0; }, true,
         "recommendations must be positive");
   ReportIgnoredParam({{ "iteration_only_termination", true }}, "min_residue");

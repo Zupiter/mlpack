@@ -54,7 +54,7 @@ class GetValueVisitor : public boost::static_visitor<void*>
  public:
   //! Return stored pointer as void* type.
   template<typename DecompositionPolicy, typename NormalizationType>
-  void operator()(CFType<DecompositionPolicy, NormalizationType>* c) const;
+  void* operator()(CFType<DecompositionPolicy, NormalizationType>* c) const;
 };
 
 /**
