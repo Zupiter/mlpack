@@ -396,7 +396,7 @@ void AssembleFactorizerType(const std::string& algorithm,
   if (algorithm == "NMF")
   {
     if(numalgo=="comb_norm")
-      PerformAction<NMFPolicy, CombinedNormalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<NMFPolicy, CombinedNormalization<OverallMeanNormalization, UserMeanNormalization, ItemMeanNormalization>>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="item_mean_norm")
       PerformAction<NMFPolicy, ItemMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="no_norm")
@@ -411,7 +411,7 @@ void AssembleFactorizerType(const std::string& algorithm,
   else if (algorithm == "BatchSVD")
   {
     if(numalgo=="comb_norm")
-      PerformAction<BatchSVDPolicy, CombinedNormalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<BatchSVDPolicy, CombinedNormalization<OverallMeanNormalization, UserMeanNormalization, ItemMeanNormalization>>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="item_mean_norm")
       PerformAction<BatchSVDPolicy, ItemMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="no_norm")
@@ -427,7 +427,7 @@ void AssembleFactorizerType(const std::string& algorithm,
   else if (algorithm == "SVDIncompleteIncremental")
   {
     if(numalgo=="comb_norm")
-      PerformAction<SVDIncompletePolicy, CombinedNormalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDIncompletePolicy, CombinedNormalization<OverallMeanNormalization, UserMeanNormalization, ItemMeanNormalization>>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="item_mean_norm")
       PerformAction<SVDIncompletePolicy, ItemMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="no_norm")
@@ -442,7 +442,7 @@ void AssembleFactorizerType(const std::string& algorithm,
   else if (algorithm == "SVDCompleteIncremental")
   {
     if(numalgo=="comb_norm")
-      PerformAction<SVDCompletePolicy, CombinedNormalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDCompletePolicy, CombinedNormalization<OverallMeanNormalization, UserMeanNormalization, ItemMeanNormalization>>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="item_mean_norm")
       PerformAction<SVDCompletePolicy, ItemMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="no_norm")
@@ -459,7 +459,7 @@ void AssembleFactorizerType(const std::string& algorithm,
     ReportIgnoredParam("min_residue", "Regularized SVD terminates only "
         "when max_iterations is reached");
     if(numalgo=="comb_norm")
-      PerformAction<RegSVDPolicy, CombinedNormalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<RegSVDPolicy, CombinedNormalization<OverallMeanNormalization, UserMeanNormalization, ItemMeanNormalization>>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="item_mean_norm")
       PerformAction<RegSVDPolicy, ItemMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="no_norm")
@@ -476,7 +476,7 @@ void AssembleFactorizerType(const std::string& algorithm,
     ReportIgnoredParam("min_residue", "Randomized SVD terminates only "
         "when max_iterations is reached");
     if(numalgo=="comb_norm")
-      PerformAction<RandomizedSVDPolicy, CombinedNormalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<RandomizedSVDPolicy, CombinedNormalization<OverallMeanNormalization, UserMeanNormalization, ItemMeanNormalization>>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="item_mean_norm")
       PerformAction<RandomizedSVDPolicy, ItemMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="no_norm")
@@ -493,7 +493,7 @@ void AssembleFactorizerType(const std::string& algorithm,
     ReportIgnoredParam("min_residue", "Bias SVD terminates only "
         "when max_iterations is reached");
     if(numalgo=="comb_norm")
-      PerformAction<BiasSVDPolicy, CombinedNormalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<BiasSVDPolicy, CombinedNormalization<OverallMeanNormalization, UserMeanNormalization, ItemMeanNormalization>>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="item_mean_norm")
       PerformAction<BiasSVDPolicy, ItemMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="no_norm")
@@ -510,7 +510,7 @@ void AssembleFactorizerType(const std::string& algorithm,
     ReportIgnoredParam("min_residue", "SVD++ terminates only "
         "when max_iterations is reached");
     if(numalgo=="comb_norm")
-      PerformAction<SVDPlusPlusPolicy, CombinedNormalization>(dataset, rank, maxIterations, minResidue);
+      PerformAction<SVDPlusPlusPolicy, CombinedNormalization<OverallMeanNormalization, UserMeanNormalization, ItemMeanNormalization>>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="item_mean_norm")
       PerformAction<SVDPlusPlusPolicy, ItemMeanNormalization>(dataset, rank, maxIterations, minResidue);
     else if(numalgo=="no_norm")
@@ -554,7 +554,7 @@ static void mlpackMain()
     "unknown normalization algorithm");
 
   ReportIgnoredParam({{ "iteration_only_termination", true }}, "min_residue");
-  
+
   RequireParamValue<int>("recommendations", [](int x) { return x > 0; }, true,
         "recommendations must be positive");
   ReportIgnoredParam({{ "iteration_only_termination", true }}, "min_residue");
