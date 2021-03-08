@@ -1,5 +1,5 @@
 /**
- * @file param_checks_impl.hpp
+ * @file core/util/param_checks_impl.hpp
  * @author Ryan Curtin
  *
  * Utility function implementation for checking arguments, and so forth.
@@ -21,7 +21,8 @@ namespace util {
 inline void RequireOnlyOnePassed(
     const std::vector<std::string>& constraints,
     const bool fatal,
-    const std::string& errorMessage)
+    const std::string& errorMessage,
+    const bool allowNone)
 {
   if (BINDING_IGNORE_CHECK(constraints))
     return;
@@ -29,7 +30,7 @@ inline void RequireOnlyOnePassed(
   size_t set = 0;
   for (size_t i = 0; i < constraints.size(); ++i)
   {
-    if (CLI::HasParam(constraints[i]))
+    if (IO::HasParam(constraints[i]))
       ++set;
   }
 
@@ -57,7 +58,7 @@ inline void RequireOnlyOnePassed(
       stream << "; " << errorMessage;
     stream << "!" << std::endl;
   }
-  else if (set == 0)
+  else if (set == 0 && !allowNone)
   {
     stream << (fatal ? "Must " : "Should ");
 
@@ -99,7 +100,7 @@ inline void RequireAtLeastOnePassed(
   size_t set = 0;
   for (size_t i = 0; i < constraints.size(); ++i)
   {
-    if (CLI::HasParam(constraints[i]))
+    if (IO::HasParam(constraints[i]))
       ++set;
   }
 
@@ -145,7 +146,7 @@ inline void RequireNoneOrAllPassed(
   size_t set = 0;
   for (size_t i = 0; i < constraints.size(); ++i)
   {
-    if (CLI::HasParam(constraints[i]))
+    if (IO::HasParam(constraints[i]))
       ++set;
   }
 
@@ -185,12 +186,12 @@ void RequireParamInSet(const std::string& name,
   if (BINDING_IGNORE_CHECK(name))
     return;
 
-  if (std::find(set.begin(), set.end(), CLI::GetParam<T>(name)) == set.end())
+  if (std::find(set.begin(), set.end(), IO::GetParam<T>(name)) == set.end())
   {
     // The item was not found in the set.
     util::PrefixedOutStream& stream = fatal ? Log::Fatal : Log::Warn;
     stream << "Invalid value of " << PRINT_PARAM_STRING(name) << " specified ("
-        << PRINT_PARAM_VALUE(CLI::GetParam<T>(name), true) << "); ";
+        << PRINT_PARAM_VALUE(IO::GetParam<T>(name), true) << "); ";
     if (!errorMessage.empty())
       stream << errorMessage << "; ";
     stream << "must be one of ";
@@ -200,7 +201,27 @@ void RequireParamInSet(const std::string& name,
         << std::endl;
   }
 }
-
+void CheckInputShape(const std::string& method,
+                        const int x_rows,
+                        const int x_cols,
+                        const int y_rows, 
+                        const int y_cols, 
+                        const int xt_rows,
+                        const int xt_cols,
+                        const bool fatal, 
+                        const std::string& errorMessage)
+{
+  util::PrefixedOutStream& stream =  Log::Fatal;
+  if(x_cols!=y_cols)
+    {
+      stream << "Number of data points in training data and labels don't match. Number of data points in feature matrix are " << x_cols 
+            <<"as opposed to " <<  y_cols <<"in true labels"; 
+    }
+    if(xt_rows!=-1 && xt_rows!=x_rows)
+    {
+      stream << "Unequal number of features of a datapoint in train and test sets";
+    }
+}
 template<typename T>
 void RequireParamValue(const std::string& name,
                        const std::function<bool(T)>& conditional,
@@ -211,13 +232,13 @@ void RequireParamValue(const std::string& name,
     return;
 
   // We need to make sure that the condition holds.
-  bool condition = conditional(CLI::GetParam<T>(name));
+  bool condition = conditional(IO::GetParam<T>(name));
   if (!condition)
   {
     // The condition failed.
     util::PrefixedOutStream& stream = fatal ? Log::Fatal : Log::Warn;
     stream << "Invalid value of " << PRINT_PARAM_STRING(name) << " specified ("
-        << PRINT_PARAM_VALUE(CLI::GetParam<T>(name), false) << "); "
+        << PRINT_PARAM_VALUE(IO::GetParam<T>(name), false) << "); "
         << errorMessage << "!" << std::endl;
   }
 }
@@ -233,7 +254,7 @@ inline void ReportIgnoredParam(
   bool condition = true;
   for (size_t i = 0; i < constraints.size(); ++i)
   {
-    if (CLI::HasParam(constraints[i].first) != constraints[i].second)
+    if (IO::HasParam(constraints[i].first) != constraints[i].second)
     {
       condition = false;
       break;
@@ -242,7 +263,7 @@ inline void ReportIgnoredParam(
 
   // If the condition is satisfied, then report that the parameter is ignored
   // (if the user passed it).
-  if (condition && CLI::HasParam(paramName))
+  if (condition && IO::HasParam(paramName))
   {
     // The output will be different depending on whether there are 1, 2, or more
     // constraints.
@@ -291,7 +312,7 @@ inline void ReportIgnoredParam(const std::string& paramName,
                                const std::string& reason)
 {
   // If the argument was passed, we need to print the reason.
-  if (CLI::HasParam(paramName))
+  if (IO::HasParam(paramName))
   {
     Log::Warn << PRINT_PARAM_STRING(paramName) << " ignored because "
         << reason << "!" << std::endl;
